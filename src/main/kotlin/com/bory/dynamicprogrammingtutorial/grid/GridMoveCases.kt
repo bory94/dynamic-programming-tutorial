@@ -18,15 +18,15 @@ fun findGridMoveCases(
 }
 
 fun main() {
-    logCase(1, 1)
-    logCase(2, 3)
-    logCase(3, 2)
-    logCase(3, 3)
-    logCase(5, 6)
-    logCase(18, 18)
-    logCase(100, 100)
+    logGridMoveCase(1, 1)
+    logGridMoveCase(2, 3)
+    logGridMoveCase(3, 2)
+    logGridMoveCase(3, 3)
+    logGridMoveCase(5, 6)
+    logGridMoveCase(18, 18)
+    logGridMoveCase(100, 100)
 }
 
-fun logCase(m: Int, n: Int) {
+fun logGridMoveCase(m: Int, n: Int) {
     println("$m X $n = ${findGridMoveCases(m, n)}")
 }

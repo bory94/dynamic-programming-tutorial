@@ -30,7 +30,6 @@ fun main() {
     logBestSumCase(8, intArrayOf(2, 3, 5))
     logBestSumCase(8, intArrayOf(1, 4, 5))
     logBestSumCase(100, intArrayOf(1, 2, 5, 25))
-
 }
 
 fun logBestSumCase(targetSum: Int, values: IntArray) {
