@@ -1,52 +1,35 @@
 package com.bory.dynamicprogrammingtutorial.word
 
-class ConstructResult(
-    val found: Boolean, val constructions: Array<String>
-)
-
-fun allConstruct(targetString: String, values: Array<String>): Array<Array<String>> {
-    return subAllConstruct(targetString, values)
-        .filter { it.found }
-        .map { it.constructions }
-        .map { it.reverse(); it }
-        .toTypedArray()
-}
-
-fun subAllConstruct(
+fun allConstruct(
     targetString: String,
     values: Array<String>,
-    memo: MutableMap<String, List<ConstructResult>> = mutableMapOf()
-): List<ConstructResult> {
+    memo: MutableMap<String, Array<Array<String>>> = mutableMapOf()
+): Array<Array<String>> {
     if (memo.containsKey(targetString)) {
         return memo[targetString]!!
     }
 
     if (targetString.isEmpty()) {
-        return listOf(ConstructResult(true, arrayOf()))
+        return arrayOf(arrayOf())
     }
 
-    val result = mutableListOf<ConstructResult>()
-
+    val result = mutableListOf<Array<String>>()
     for (value in values) {
         if (!targetString.startsWith(value)) {
             continue
         }
 
         val suffix = targetString.substring(value.length)
-        val resultList = subAllConstruct(suffix, values, memo)
+        val subResult = allConstruct(suffix, values, memo)
 
-        result.addAll(
-            resultList.filter { it.found }
-                .map { cResult ->
-                    ConstructResult(true, arrayOf(*cResult.constructions, value))
-                }
-        )
+        if (subResult.isNotEmpty()) {
+            result.addAll(
+                subResult.map { arrayOf(value, *it) }
+            )
+        }
     }
 
-    memo[targetString] = if (result.isEmpty()) {
-        listOf(ConstructResult(false, arrayOf()))
-    } else result
-
+    memo[targetString] = result.toTypedArray()
     return memo[targetString]!!
 }
 
@@ -64,17 +47,16 @@ fun main() {
     )
 
     logAllConstruct("aaaaaaaaaaaaaaaaaaaaaaaa", arrayOf("aa", "aaa"))
+    logAllConstruct("abcdef", arrayOf("ab", "abc", "cd", "def", "abcd", "ef", "c"))
 }
 
 fun logAllConstruct(targetString: String, values: Array<String>) {
     println(
         "targetString[$targetString], values[${values.joinToString(",")}] ::: ${
-            allConstruct(
-                targetString,
-                values
-            ).map {
-                it.joinToString(",")
-            }.joinToString(" ||| ")
+            allConstruct(targetString, values)
+                .joinToString(" ||| ") {
+                    it.joinToString(",")
+                }
         }"
     )
 }
