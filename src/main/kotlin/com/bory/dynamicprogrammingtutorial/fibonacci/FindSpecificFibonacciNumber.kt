@@ -5,7 +5,7 @@ fun findFibonacci(n: Long, memo: MutableMap<Long, Long> = mutableMapOf()): Long 
     if (memo.containsKey(n)) {
         return memo[n]!!
     }
-    if (n < 2) {
+    if (n <= 2) {
         return 1
     }
 
@@ -14,5 +14,5 @@ fun findFibonacci(n: Long, memo: MutableMap<Long, Long> = mutableMapOf()): Long 
 }
 
 fun main() {
-    println(findFibonacci(200))
+    println(findFibonacci(180))
 }
