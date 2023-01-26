@@ -9,11 +9,8 @@ class LinkedList {
 
     fun push(newData: Int) {
         val newNode = Node(newData)
-        if (head == null) head = newNode
-        else {
-            newNode.next = head
-            head = newNode
-        }
+        newNode.next = head
+        head = newNode
     }
 
     fun reverse() {
