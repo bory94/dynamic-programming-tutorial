@@ -14,13 +14,7 @@ fun partitionString(value: String): IntArray {
 
     val charArray = value.toCharArray()
     for (i in charArray.indices) {
-        val c = charArray[i]
-        val currentLastIndex = lastIndexMap[c]!!
-
-        if (currentLastIndex > end) {
-            end = currentLastIndex
-        }
-
+        end = end.coerceAtLeast(lastIndexMap[charArray[i]]!!)
         size++
 
         if (i >= end) {
